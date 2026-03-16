@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VisionClimb | CPT208 Group Portfolio</title>
+  <meta name="description" content="VisionClimb - An inclusive climbing guidance system for visually impaired people." />
+  <style>
+    :root {
+      --bg: #070b16;
+      --bg-soft: rgba(255,255,255,0.05);
+      --panel: rgba(10, 18, 35, 0.72);
+      --panel-2: rgba(17, 27, 49, 0.72);
+      --line: rgba(255,255,255,0.11);
+      --text: #ecf3ff;
+      --muted: #a8b7d9;
+      --accent: #75d6ff;
+      --accent-2: #8a7dff;
+      --accent-3: #4df2c2;
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --radius: 24px;
+      --max: 1240px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(117,214,255,0.18), transparent 30%),
+        radial-gradient(circle at 85% 15%, rgba(138,125,255,0.16), transparent 28%),
+        radial-gradient(circle at 50% 90%, rgba(77,242,194,0.10), transparent 30%),
+        linear-gradient(180deg, #060912 0%, #09101d 45%, #070b16 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(circle at center, black 55%, transparent 100%);
+      opacity: 0.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .container { width: min(92%, var(--max)); margin: 0 auto; }
+    .section { padding: 92px 0; position: relative; }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+    .section-subtitle {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 34px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 14px;
+      z-index: 30;
+      width: min(94%, 1180px);
+      margin: 16px auto 0;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(8,13,26,0.62);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(117,214,255,0.24), rgba(138,125,255,0.24));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 0 24px rgba(117,214,255,0.15);
+      font-size: 1rem;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: var(--muted);
+      transition: 0.25s ease;
+      font-size: 0.95rem;
+    }
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+    }
+    .nav-cta {
+      padding: 10px 16px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(117,214,255,0.18), rgba(138,125,255,0.18));
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .hero {
+      padding: 96px 0 46px;
+      position: relative;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr;
+      gap: 30px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: #c9dcff;
+      margin-bottom: 22px;
+      font-size: 0.92rem;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-3));
+      box-shadow: 0 0 16px rgba(117,214,255,0.8);
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      margin-bottom: 20px;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, #ffffff 10%, #b7e6ff 44%, #9ba4ff 68%, #82ffd9 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 42px rgba(117,214,255,0.14);
+    }
+    .hero p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.9;
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .btn {
+      padding: 14px 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      font-weight: 600;
+      transition: 0.25s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, rgba(117,214,255,0.22), rgba(138,125,255,0.22));
+      box-shadow: 0 10px 30px rgba(117,214,255,0.12);
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(120px, 1fr));
+      gap: 14px;
+    }
+    .stat {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+    }
+    .stat strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 5px;
+    }
+    .stat span { color: var(--muted); font-size: 0.92rem; }
+
+    .visual-wrap {
+      position: relative;
+      min-height: 520px;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(10px);
+      opacity: 0.7;
+      animation: float 10s ease-in-out infinite;
+    }
+    .orb.one {
+      width: 200px; height: 200px;
+      right: 35px; top: 40px;
+      background: radial-gradient(circle, rgba(117,214,255,0.28), rgba(117,214,255,0.02));
+    }
+    .orb.two {
+      width: 180px; height: 180px;
+      left: 8px; bottom: 70px;
+      background: radial-gradient(circle, rgba(138,125,255,0.24), rgba(138,125,255,0.02));
+      animation-delay: -3s;
+    }
+    .orb.three {
+      width: 140px; height: 140px;
+      right: 80px; bottom: 0;
+      background: radial-gradient(circle, rgba(77,242,194,0.22), rgba(77,242,194,0.02));
+      animation-delay: -5s;
+    }
+
+    .device-card {
+      position: absolute;
+      inset: 30px 24px 24px 24px;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)),
+        rgba(10,15,28,0.75);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+    .device-top {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .device-dots { display: flex; gap: 8px; }
+    .device-dots span {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+    }
+    .device-dots span:nth-child(1) { background: rgba(255,120,120,0.8); }
+    .device-dots span:nth-child(2) { background: rgba(255,220,120,0.8); }
+    .device-dots span:nth-child(3) { background: rgba(120,255,180,0.8); }
+    .device-body {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      height: calc(100% - 63px);
+    }
+    .panel {
+      border-radius: 22px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -55% -10%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(117,214,255,0.12), transparent 60%);
+      pointer-events: none;
+    }
+    .panel h3 {
+      font-size: 0.95rem;
+      color: #dff0ff;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+    .route-box {
+      height: 100%;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015)),
+        linear-gradient(135deg, rgba(117,214,255,0.05), rgba(138,125,255,0.05));
+      border-radius: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .route-line {
+      position: absolute;
+      inset: 24px 24px 24px 24px;
+      border-left: 2px dashed rgba(255,255,255,0.12);
+      border-right: 2px dashed rgba(255,255,255,0.06);
+      border-radius: 18px;
+    }
+    .hold {
+      position: absolute;
+      width: 30px; height: 22px;
+      border-radius: 14px 14px 12px 12px;
+      background: linear-gradient(135deg, rgba(117,214,255,0.95), rgba(138,125,255,0.9));
+      box-shadow: 0 0 20px rgba(117,214,255,0.24);
+    }
+    .hold:nth-child(1) { left: 22%; top: 14%; }
+    .hold:nth-child(2) { right: 24%; top: 24%; }
+    .hold:nth-child(3) { left: 30%; top: 40%; }
+    .hold:nth-child(4) { right: 28%; top: 55%; }
+    .hold:nth-child(5) { left: 18%; top: 68%; }
+    .hold:nth-child(6) { right: 18%; top: 82%; }
+    .signal {
+      display: grid;
+      gap: 12px;
+    }
+    .signal-item {
+      padding: 14px 14px 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .signal-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+    .signal-item span {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+    .chip-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .chip {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #d9e7ff;
+      font-size: 0.86rem;
+    }
+
+    .glass-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      backdrop-filter: blur(16px);
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+    .overview-main, .overview-side { padding: 28px; }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .kpi {
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+    }
+    .kpi strong { display:block; font-size: 1.2rem; margin-bottom: 6px; }
+    .kpi span { color: var(--muted); font-size: 0.92rem; }
+    .focus-list { display: grid; gap: 14px; }
+    .focus-item {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .focus-item strong { display:block; margin-bottom: 6px; }
+    .focus-item span { color: var(--muted); line-height: 1.7; }
+
+    .members-grid,
+    .persona-grid,
+    .principles-grid {
+      display: grid;
+      gap: 22px;
+    }
+    .members-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .persona-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .principles-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .member-card,
+    .persona-card,
+    .principle-card {
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+    }
+    .member-card::before,
+    .persona-card::before,
+    .principle-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(117,214,255,0.22), rgba(138,125,255,0.18), rgba(77,242,194,0.16));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .glow {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(117,214,255,0.16), transparent 70%);
+      top: -40px;
+      right: -40px;
+      pointer-events: none;
+    }
+    .member-photo {
+      width: 86px;
+      height: 86px;
+      border-radius: 22px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.12);
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, rgba(117,214,255,0.16), rgba(138,125,255,0.16));
+      box-shadow: 0 8px 22px rgba(0,0,0,0.28);
+    }
+    .member-card h3,
+    .persona-card h3,
+    .principle-card h3 { margin-bottom: 8px; font-size: 1.25rem; }
+    .member-id {
+      color: #90b8ff;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+    .member-role {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 14px;
+      color: #d9e8ff;
+      font-size: 0.84rem;
+    }
+    .member-card p,
+    .persona-card p,
+    .principle-card p,
+    .persona-card li,
+    .overview-main p,
+    .overview-side p {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .persona-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: #deebff;
+      font-size: 0.84rem;
+    }
+    .persona-grid ul {
+      padding-left: 18px;
+      margin-top: 8px;
+      margin-bottom: 10px;
+    }
+    .persona-grid li { margin-bottom: 6px; }
+
+    .footer {
+      padding: 42px 0 56px;
+      color: var(--muted);
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: 24px;
+    }
+    .footer small { font-size: 0.95rem; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-14px); }
+    }
+
+    @media (max-width: 1120px) {
+      .hero-grid,
+      .overview-grid,
+      .members-grid,
+      .persona-grid,
+      .principles-grid,
+      .device-body {
+        grid-template-columns: 1fr;
+      }
+      .visual-wrap { min-height: 620px; }
+    }
+
+    @media (max-width: 860px) {
+      .nav { top: 10px; padding: 12px 14px; }
+      .nav-links { display: none; }
+      .hero { padding-top: 72px; }
+      .section { padding: 72px 0; }
+      .hero-stats,
+      .kpi-grid { grid-template-columns: 1fr; }
+      .visual-wrap { min-height: 560px; }
+      .device-card { inset: 22px 0 0 0; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="#top" class="brand">
+      <span class="brand-mark">VC</span>
+      <span>VisionClimb</span>
+    </a>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#members">Members</a>
+      <a href="#personas">Personas</a>
+      <a href="#principles">Principles</a>
+    </div>
+    <a href="#members" class="nav-cta">CPT208 Portfolio</a>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="container hero-grid">
+      <div class="hero-copy reveal visible">
+        <div class="eyebrow">CPT208 AY2025-26 · Week 2 Homework</div>
+        <h1><span class="gradient">VisionClimb</span></h1>
+        <p>
+          A premium concept portfolio for an inclusive climbing guidance system designed to support
+          visually impaired people through safe navigation, spatial awareness, multisensory feedback,
+          and human-centered interaction design.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#personas">Explore Personas</a>
+          <a class="btn" href="#members">Meet the Team</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <strong>4</strong>
+            <span>Team Members</span>
+          </div>
+          <div class="stat">
+            <strong>2</strong>
+            <span>Core Personas</span>
+          </div>
+          <div class="stat">
+            <strong>1</strong>
+            <span>Inclusive Design Goal</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="visual-wrap reveal" id="visualWrap">
+        <div class="orb one"></div>
+        <div class="orb two"></div>
+        <div class="orb three"></div>
+        <div class="device-card" id="tiltCard">
+          <div class="device-top">
+            <div class="device-dots"><span></span><span></span><span></span></div>
+            <div style="color: var(--muted); font-size: 0.92rem;">Adaptive Climbing Interface</div>
+          </div>
+          <div class="device-body">
+            <div class="panel">
+              <h3>Route Guidance Simulation</h3>
+              <div class="route-box">
+                <div class="route-line"></div>
+                <div class="hold"></div>
+                <div class="hold"></div>
+                <div class="hold"></div>
+                <div class="hold"></div>
+                <div class="hold"></div>
+                <div class="hold"></div>
+              </div>
+            </div>
+            <div class="panel">
+              <h3>Multisensory Feedback Layers</h3>
+              <div class="signal">
+                <div class="signal-item">
+                  <strong>Audio Cue Sequence</strong>
+                  <span>Directional voice prompts guide the next movement and reduce uncertainty during route progression.</span>
+                </div>
+                <div class="signal-item">
+                  <strong>Haptic Reinforcement</strong>
+                  <span>Wearable vibration patterns communicate direction, route transitions, and support moments.</span>
+                </div>
+                <div class="signal-item">
+                  <strong>Confidence Monitoring</strong>
+                  <span>Simple, structured coaching feedback creates a safer and more approachable climbing experience.</span>
+                </div>
+              </div>
+              <div class="chip-row">
+                <span class="chip">Accessibility</span>
+                <span class="chip">Safety</span>
+                <span class="chip">Navigation</span>
+                <span class="chip">Inclusion</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="overview">
+    <div class="container overview-grid">
+      <div class="overview-main glass-card reveal">
+        <h2 class="section-title">Project Overview</h2>
+        <p>
+          VisionClimb explores how inclusive interaction design can make indoor climbing more accessible
+          to visually impaired users. Conventional climbing environments depend heavily on visual route cues,
+          spatial recognition, and quick interpretation of wall layouts. Our concept focuses on reducing that
+          reliance through structured guidance, accessible information delivery, and safer real-time support.
+        </p>
+        <div class="kpi-grid">
+          <div class="kpi">
+            <strong>Problem</strong>
+            <span>Visual route dependency limits independent participation.</span>
+          </div>
+          <div class="kpi">
+            <strong>Goal</strong>
+            <span>Create a climbing experience that feels safer and more understandable.</span>
+          </div>
+          <div class="kpi">
+            <strong>Method</strong>
+            <span>Use accessibility-led thinking, personas, and interaction design direction.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-side glass-card reveal">
+        <h2 class="section-title" style="font-size: 2rem;">Research Focus</h2>
+        <div class="focus-list">
+          <div class="focus-item">
+            <strong>Inclusive Sports Experience</strong>
+            <span>Designing for dignity, confidence, and meaningful participation instead of minimal accommodation.</span>
+          </div>
+          <div class="focus-item">
+            <strong>Multimodal Guidance</strong>
+            <span>Exploring audio, haptic, and coaching support to communicate route and movement information clearly.</span>
+          </div>
+          <div class="focus-item">
+            <strong>Human-Centered Development</strong>
+            <span>Using personas to shape design priorities around real needs, real pain points, and real context.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="members">
+    <div class="container">
+      <h2 class="section-title reveal">Group Members</h2>
+      <p class="section-subtitle reveal">
+        Replace the placeholder information below with your final team details, student IDs, and profile photos.
+        The visual structure is ready for submission and presentation.
+      </p>
+      <div class="members-grid">
+        <article class="member-card glass-card reveal">
+          <div class="glow"></div>
+          <img class="member-photo" src="member1.jpg" alt="Youming Yang profile photo" />
+          <span class="member-role">Team Member · Accessibility Design</span>
+          <h3>Youming Yang</h3>
+          <div class="member-id">Student ID: YOUR STUDENT ID</div>
+          <p>
+            Passionate about inclusive product thinking, interface quality, and meaningful digital experiences.
+            Focused on shaping an accessible system that turns complex environments into confident user journeys.
+          </p>
+        </article>
+
+        <article class="member-card glass-card reveal">
+          <div class="glow"></div>
+          <img class="member-photo" src="member2.jpg" alt="Member 2 profile photo" />
+          <span class="member-role">Team Member · Front-End & UI</span>
+          <h3>Member 2 Name</h3>
+          <div class="member-id">Student ID: XXXXXXXX</div>
+          <p>
+            Add a polished short introduction here. Example: interested in front-end implementation,
+            visual consistency, and creating user-friendly interfaces with strong presentation quality.
+          </p>
+        </article>
+
+        <article class="member-card glass-card reveal">
+          <div class="glow"></div>
+          <img class="member-photo" src="member3.jpg" alt="Member 3 profile photo" />
+          <span class="member-role">Team Member · Research & Documentation</span>
+          <h3>Member 3 Name</h3>
+          <div class="member-id">Student ID: XXXXXXXX</div>
+          <p>
+            Add a polished short introduction here. Example: contributes to research synthesis,
+            project structure, and translating user insights into clear design direction.
+          </p>
+        </article>
+
+        <article class="member-card glass-card reveal">
+          <div class="glow"></div>
+          <img class="member-photo" src="member4.jpg" alt="Member 4 profile photo" />
+          <span class="member-role">Team Member · Coordination & Strategy</span>
+          <h3>Member 4 Name</h3>
+          <div class="member-id">Student ID: XXXXXXXX</div>
+          <p>
+            Add a polished short introduction here. Example: supports project coordination,
+            concept refinement, and delivering an academically strong and well-structured outcome.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="personas">
+    <div class="container">
+      <h2 class="section-title reveal">User Personas</h2>
+      <p class="section-subtitle reveal">
+        These personas help our team understand the real motivations, frustrations, and context of potential users in an inclusive climbing environment.
+      </p>
+      <div class="persona-grid">
+        <article class="persona-card glass-card reveal">
+          <div class="glow"></div>
+          <span class="persona-tag">Persona 01 · Primary User</span>
+          <h3>Ethan Lin</h3>
+          <p><strong style="color: var(--text);">Age:</strong> 21</p>
+          <p><strong style="color: var(--text);">Background:</strong> Ethan is a university student with severe visual impairment. He enjoys physical challenges and wants to participate in indoor climbing, but unfamiliar spaces and visually dependent route systems make the experience intimidating.</p>
+          <p><strong style="color: var(--text);">Goals:</strong></p>
+          <ul>
+            <li>Build confidence in navigating a climbing environment</li>
+            <li>Understand route progression through accessible guidance</li>
+            <li>Participate in sports with more independence and dignity</li>
+          </ul>
+          <p><strong style="color: var(--text);">Pain Points:</strong></p>
+          <ul>
+            <li>Cannot rely on visual route markers or wall mapping</li>
+            <li>Feels anxiety in fast-changing or unfamiliar spatial layouts</li>
+            <li>Needs guidance that is timely, clear, and not overwhelming</li>
+          </ul>
+          <p><strong style="color: var(--text);">Technology Habits:</strong> Uses screen readers, voice feedback, and accessibility settings daily on his smartphone.</p>
+          <p><strong style="color: var(--text);">Why He Would Use VisionClimb:</strong> It offers structure, clarity, and supportive feedback that can turn climbing into a safer and more empowering experience.</p>
+        </article>
+
+        <article class="persona-card glass-card reveal">
+          <div class="glow"></div>
+          <span class="persona-tag">Persona 02 · Support Role</span>
+          <h3>Sophia Chen</h3>
+          <p><strong style="color: var(--text);">Age:</strong> 29</p>
+          <p><strong style="color: var(--text);">Background:</strong> Sophia is a climbing coach and accessibility volunteer who supports beginners in adaptive sports settings. She wants reliable tools that improve communication and make coaching for visually impaired users more structured.</p>
+          <p><strong style="color: var(--text);">Goals:</strong></p>
+          <ul>
+            <li>Provide safer and clearer route support during sessions</li>
+            <li>Reduce confusion caused by fast verbal coaching alone</li>
+            <li>Help users feel supported while still developing independence</li>
+          </ul>
+          <p><strong style="color: var(--text);">Pain Points:</strong></p>
+          <ul>
+            <li>Real-time direction can be difficult during movement-heavy moments</li>
+            <li>Different users require different levels of support and pacing</li>
+            <li>There are few dedicated tools built for inclusive climbing guidance</li>
+          </ul>
+          <p><strong style="color: var(--text);">Technology Habits:</strong> Uses mobile apps, wearables, and digital planning tools for coaching and session management.</p>
+          <p><strong style="color: var(--text);">Why She Would Use VisionClimb:</strong> It improves clarity, supports safer instruction, and helps create a more thoughtful inclusive sports experience.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="principles">
+    <div class="container">
+      <h2 class="section-title reveal">Design Principles</h2>
+      <p class="section-subtitle reveal">
+        Our concept direction is guided by a set of design principles that balance accessibility, clarity, and confidence-building interaction.
+      </p>
+      <div class="principles-grid">
+        <article class="principle-card glass-card reveal">
+          <div class="glow"></div>
+          <h3>Accessible by Default</h3>
+          <p>Every touchpoint should reduce cognitive burden and communicate clearly through non-visual channels whenever possible.</p>
+        </article>
+        <article class="principle-card glass-card reveal">
+          <div class="glow"></div>
+          <h3>Confidence Through Guidance</h3>
+          <p>The system should not only direct movement, but also help users feel secure, supported, and capable throughout the activity.</p>
+        </article>
+        <article class="principle-card glass-card reveal">
+          <div class="glow"></div>
+          <h3>Human-Centered Inclusion</h3>
+          <p>Design decisions should reflect lived experience, real constraints, and the emotional dimension of participation in adaptive sport.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <small>VisionClimb · CPT208 Group Portfolio · Inclusive Climbing Guidance System</small>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const tiltCard = document.getElementById('tiltCard');
+    const wrap = document.getElementById('visualWrap');
+
+    if (tiltCard && wrap) {
+      wrap.addEventListener('mousemove', (e) => {
+        const rect = wrap.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateY = (x - centerX) / 28;
+        const rotateX = (centerY - y) / 28;
+        tiltCard.style.transform = `perspective(1200px) rotateX(${rotateX * 0.45}deg) rotateY(${rotateY * 0.45}deg) translateZ(0)`;
+      });
+
+      wrap.addEventListener('mouseleave', () => {
+        tiltCard.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+      });
+    }
+  </script>
+</body>
+</html>
